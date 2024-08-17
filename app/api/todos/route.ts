@@ -1,12 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server"
+import { fetchTodos, addTodos } from "@/data/firestore"
 import dummyTodos from '@/data/sample.json'
 
+
 // get all list
-export async  function GET(req: Request){
+export async  function GET(req: NextRequest){
+
+  const fetchedTodos = await fetchTodos();
   const res = {
     message: 'get all lists success!',
-    data: dummyTodos
+    //data: dummyTodos // for test
+    data: fetchedTodos
   }
+
   return NextResponse.json(res, { status: 200 });
 }
 
@@ -22,14 +28,24 @@ export async  function POST(req: NextRequest) {
 
   const { title } = await req.json();
 
+  if (title === undefined) {
+    const errorMessage = {
+      message : 'input a title.'
+    }
+    return NextResponse.json(errorMessage, { status: 422 });
+  }
+
+  const addedTodo = await addTodos({ title });
+
   const newTodo = {
-    id: "10",
-    title,
-    is_done:false
+    //id: "10",
+    message: "add to do success.!",
+    title
+    //is_done:false
   }
 
   const res = {
-    message: 'todo add to success!',
+    message: 'to do add to success!',
     data: newTodo
   }
 
