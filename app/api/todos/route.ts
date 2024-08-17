@@ -25,7 +25,7 @@ export async  function POST(req: NextRequest) {
   const newTodo = {
     id: "10",
     title,
-    id_done:false
+    is_done:false
   }
 
   const res = {

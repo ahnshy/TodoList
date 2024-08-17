@@ -5,7 +5,7 @@ export async  function GET(req: NextRequest,
                            { params }: { params: {id: string} }) {
 
   const searchParams = req.nextUrl.searchParams
-  const search = searchParams.get('query')
+  const searchQuery = searchParams.get('q')
 
   const res = {
     message: 'welcome to api id test',
@@ -13,7 +13,7 @@ export async  function GET(req: NextRequest,
       id: params.id,
       title : "Get Parameter",
       is_done: false,
-      search
+      searchQuery
     }
   }
   return NextResponse.json(res, { status: 200 });

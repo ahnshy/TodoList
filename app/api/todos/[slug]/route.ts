@@ -27,3 +27,23 @@ export async  function DELETE(req: Request,
   }
   return NextResponse.json(res, { status: 200 });
 }
+
+// modify single item by id
+export async  function POST(req: Request,
+                              { params }: { params: {slug: string} }) {
+
+  const { title, is_done } = await req.json();
+
+  const editTodo = {
+    id: params.slug,
+    title,
+    is_done
+  }
+
+  const res = {
+    message: 'modify single item by id',
+    data: editTodo
+  }
+  return NextResponse.json(res, { status: 200 });
+}
+
