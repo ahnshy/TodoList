@@ -17,7 +17,18 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
 
   const DisabledTodoAddButton = () => {
     return
-
+    // <Button color="default" className="h-14">Enter</Button>
+    <Popover placement="top" showArrow={true}>
+      <PopoverTrigger>
+        <Button color="default" className="h-14">Enter</Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <div className="px-1 py-2">
+          <div className="text-small font-bold">Notice</div>
+          <div className="text-tiny">Empty to do. input new things to do</div>
+        </div>
+      </PopoverContent>
+    </Popover>
   }
   const TodoRow = (item: Todo) => {
     return <TableRow key={item.id}>
@@ -43,18 +54,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
           todoAddEnable ?
             <Button color="warning" className="h-14">Enter</Button>
           :
-            // <Button color="default" className="h-14">Enter</Button>
-            <Popover placement="top" showArrow={true}>
-              <PopoverTrigger>
-                <Button color="default" className="h-14">Enter</Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <div className="px-1 py-2">
-                  <div className="text-small font-bold">Notice</div>
-                  <div className="text-tiny">Empty to do. input new things to do</div>
-                </div>
-              </PopoverContent>
-            </Popover>
+            DisabledTodoAddButton()
         }
       </div>
 
