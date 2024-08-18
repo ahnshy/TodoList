@@ -23,7 +23,11 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
   const addTodoHandler = async (title: string) => {
     if (!todoAddEnable) { return }
 
+    setTodoAddEnable(false);
     setIsLoading(true);
+
+    await new Promise(f => setTimeout(f, 600));
+
     await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/todos`, {
       method: 'post',
       body: JSON.stringify({
@@ -35,6 +39,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
     setNewTodoInput('');
     router.refresh();
     setIsLoading(false);
+    setTodoAddEnable(false);
     //console.log(`new to do job success: ${newTodoInput}`);
   }
 
@@ -64,7 +69,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
   }
 
   return (
-    <>
+    <div className="flex flex-col space-y-2">
       <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
         <Input type="text" label="새로운 할 일" placeholder="Enter new things to do"
                value={newTodoInput}
@@ -101,7 +106,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
           ))}
         </TableBody>
       </Table>
-    </>
+    </div>
   );
 }
 
