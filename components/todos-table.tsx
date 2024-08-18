@@ -11,6 +11,7 @@ import { Simulate } from "react-dom/test-utils";
 import { useRouter } from "next/navigation";
 import { VerticalDotsIcon } from './icons';
 import { ToastContainer, toast } from 'react-toastify';
+import CustomModal, { customModal } from './custom-modal'
 import 'react-toastify/dist/ReactToastify.css';
 import change = Simulate.change;
 
@@ -112,24 +113,11 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
       <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">{ currentModalData.modalType }</ModalHeader>
-              <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter>
-            </>
+            (currentModalData.focusedTodo && <CustomModal
+                focusedTodo={ currentModalData.focusedTodo }
+                modalType={ currentModalData.modalType }
+                OnClose={onClose}
+            />)
           )}
         </ModalContent>
       </Modal>
