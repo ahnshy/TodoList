@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import {  Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell} from "@nextui-org/table";
-import { Todo } from "@/types"
+import { CustomModalType, FocusedTodoType, Todo } from "@/types";
 import {Input, Button, Popover, PopoverContent, PopoverTrigger, Spinner,
   Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,
-  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,
+  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure
 } from "@nextui-org/react";
 import { Simulate } from "react-dom/test-utils";
 import { useRouter } from "next/navigation";
@@ -24,6 +24,12 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
 
   // Status Loading
   const [isLoading, setIsLoading] = useState<Boolean>(false);
+
+  // modal type
+  const [currentModalData, setCurrentModalData] = useState<FocusedTodoType>({
+      focusedTodo: null,
+      modalType: 'detail' as CustomModalType
+    });
 
   const router = useRouter();
   const addTodoHandler = async (title: string) => {
@@ -80,10 +86,14 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
                       <VerticalDotsIcon className="text-default-300" />
                     </Button>
                   </DropdownTrigger>
-                  <DropdownMenu>
-                    <DropdownItem>View</DropdownItem>
-                    <DropdownItem>Modify</DropdownItem>
-                    <DropdownItem>Delete</DropdownItem>
+                  <DropdownMenu onAction={(key) => {
+                    console.log(`selected item.id: ${item.id} / key: ${key}`);
+                    setCurrentModalData({focusedTodo: item, modeType: key as CustomModalType })
+                    onOpen();
+                  }}>
+                    <DropdownItem key="detail">View</DropdownItem>
+                    <DropdownItem key="modify">Modify</DropdownItem>
+                    <DropdownItem key="delete">Delete</DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </div>
@@ -94,8 +104,41 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
   // apply react-toastify
   const notifyTodoAddedEvent = (msg: string) => toast.success(msg);
 
+  // Modal Status Closure
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const ModalComponent = () => {
+    return <div>
+      <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">{ currentModalData.modalType }</ModalHeader>
+              <ModalBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nullam pulvinar risus non risus hendrerit venenatis.
+                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Action
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </div>
+  }
+
   return (
     <div className="flex flex-col space-y-2">
+      {ModalComponent()}
       <ToastContainer
         position="top-right"
         autoClose={2000}
