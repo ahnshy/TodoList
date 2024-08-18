@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import {  Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell} from "@nextui-org/table";
 import { Todo } from "@/types"
-import {Input, Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
+import {Input, Button, Popover, PopoverContent, PopoverTrigger, Spinner } from "@nextui-org/react";
 import { Simulate } from "react-dom/test-utils";
+import { useRouter } from "next/navigation";
 import change = Simulate.change;
 
 const TodosTable = ( { todos } : { todos:Todo[] }) => {
@@ -14,6 +15,28 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
 
   // inputed to do
   const [newTodoInput, setNewTodoInput] = useState('');
+
+  // Status Loading
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
+
+  const router = useRouter();
+  const addTodoHandler = async (title: string) => {
+    if (!todoAddEnable) { return }
+
+    setIsLoading(true);
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/todos`, {
+      method: 'post',
+      body: JSON.stringify({
+        title: title
+      }),
+      cache: 'no-store'
+    });
+
+    setNewTodoInput('');
+    router.refresh();
+    setIsLoading(false);
+    //console.log(`new to do job success: ${newTodoInput}`);
+  }
 
   const DisabledTodoAddButton = () => {
     return
@@ -52,10 +75,17 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
         />
         {
           todoAddEnable ?
-            <Button color="warning" className="h-14">Enter</Button>
+            <Button color="warning" className="h-14"
+                    onPress={async ()=> {
+                      await addTodoHandler(newTodoInput)
+                    }}
+            >Enter</Button>
           :
             DisabledTodoAddButton()
         }
+      </div>
+      <div className="h-6">
+        { isLoading && <Spinner size="sm" color="warning" /> }
       </div>
 
       <Table aria-label="Example static collection table">

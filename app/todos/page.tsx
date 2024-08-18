@@ -7,7 +7,8 @@ async function getInitialTodosList() {
   console.log("getInitialTodosList called.");
   //await new Promise(f => setTimeout(f, 3000)); // 3초 대기 후 10 리턴
   //const response = await fetchTodos();
-  const response = await fetch(`${process.env.BASE_API_URL}/todos/`)
+  const response = await fetch(`${process.env.BASE_API_URL}/todos`,
+    { cache: 'no-store'})
  // console.log(response);
 
   if (!response.ok){
