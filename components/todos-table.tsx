@@ -3,9 +3,13 @@
 import React, { useState } from "react";
 import {  Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell} from "@nextui-org/table";
 import { Todo } from "@/types"
-import {Input, Button, Popover, PopoverContent, PopoverTrigger, Spinner } from "@nextui-org/react";
+import {Input, Button, Popover, PopoverContent, PopoverTrigger, Spinner,
+  Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,
+  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,
+} from "@nextui-org/react";
 import { Simulate } from "react-dom/test-utils";
 import { useRouter } from "next/navigation";
+import { VerticalDotsIcon } from './icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import change = Simulate.change;
@@ -68,6 +72,22 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
             {/*<TableCell>{item.is_done ? "&#xU+2705;" : "&#128204;"}</TableCell>*/}
             <TableCell>{item.is_done ? "Done" : "Progess"}</TableCell>
             <TableCell>{`${item.create_at}`}</TableCell>
+            <TableCell>
+              <div className="relative flex justify-end items-center gap-2">
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button isIconOnly size="sm" variant="light">
+                      <VerticalDotsIcon className="text-default-300" />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu>
+                    <DropdownItem>View</DropdownItem>
+                    <DropdownItem>Modify</DropdownItem>
+                    <DropdownItem>Delete</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </div>
+            </TableCell>
     </TableRow>
   }
 
@@ -116,7 +136,8 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
           <TableColumn>ID</TableColumn>
           <TableColumn>TODO</TableColumn>
           <TableColumn>STATUS</TableColumn>
-          <TableColumn>CREATED AT</TableColumn>
+          <TableColumn>CREATED</TableColumn>
+          <TableColumn>Actions</TableColumn>
         </TableHeader>
         <TableBody emptyContent={"There are no items to show."}>
           {todos && todos.map((item: Todo) => (

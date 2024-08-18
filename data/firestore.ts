@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
-  getFirestore, collection, getDocs, getDoc, setDoc, doc, deleteDoc, updateDoc, Timestamp
+  getFirestore, collection, getDocs, getDoc, setDoc, doc, deleteDoc, updateDoc,
+  Timestamp, query, orderBy, limit
 } from "firebase/firestore";
 import exp from "constants";
 
@@ -23,7 +24,11 @@ const db = getFirestore(app);
 
 // get all docs
 export async function fetchTodos() {
-  const querySnapshot = await getDocs(collection(db, "todos"));
+  const todosRef = collection(db, "todos");
+  //const descQuery = query(todosRef, orderBy("todosRef","createat"), limit(3));
+  const descQuery = query(todosRef, orderBy("create_at","desc"));
+
+  const querySnapshot = await getDocs(descQuery);
 
   const fetchedTodos = [];
   if (querySnapshot.empty) {
