@@ -27,7 +27,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
             Close
           </Button>
           <Button color="primary" onPress={onClose}>
-            Action
+            Ok
           </Button>
         </ModalFooter>
       </>
@@ -46,7 +46,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
           Close
         </Button>
         <Button color="primary" onPress={onClose}>
-          Action
+          Ok
         </Button>
       </ModalFooter>
     </>
@@ -65,7 +65,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
           Close
         </Button>
         <Button color="primary" onPress={onClose}>
-          Action
+          Ok
         </Button>
       </ModalFooter>
     </>
@@ -73,7 +73,6 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
 
   const getModal = (type: CustomModalType) => {
     console.log(type);
-    DetailModal();
     switch (type) {
       case 'detail':  return DetailModal();
       case 'modify':  return ModifyModal();

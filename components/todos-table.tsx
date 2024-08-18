@@ -89,7 +89,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
                   </DropdownTrigger>
                   <DropdownMenu onAction={(key) => {
                     console.log(`selected item.id: ${item.id} / key: ${key}`);
-                    setCurrentModalData({focusedTodo: item, modeType: key as CustomModalType })
+                    setCurrentModalData({focusedTodo: item, modalType: key as CustomModalType })
                     onOpen();
                   }}>
                     <DropdownItem key="detail">View</DropdownItem>
