@@ -6,6 +6,8 @@ import { Todo } from "@/types"
 import {Input, Button, Popover, PopoverContent, PopoverTrigger, Spinner } from "@nextui-org/react";
 import { Simulate } from "react-dom/test-utils";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import change = Simulate.change;
 
 const TodosTable = ( { todos } : { todos:Todo[] }) => {
@@ -40,6 +42,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
     router.refresh();
     setIsLoading(false);
     setTodoAddEnable(false);
+    notifyTodoAddedEvent("Succeed to add todo");
     //console.log(`new to do job success: ${newTodoInput}`);
   }
 
@@ -68,8 +71,23 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
     </TableRow>
   }
 
+  // apply react-toastify
+  const notifyTodoAddedEvent = (msg: string) => toast.success(msg);
+
   return (
     <div className="flex flex-col space-y-2">
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
         <Input type="text" label="새로운 할 일" placeholder="Enter new things to do"
                value={newTodoInput}
