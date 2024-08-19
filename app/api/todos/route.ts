@@ -49,5 +49,5 @@ export async  function POST(req: NextRequest) {
     data: newTodo
   }
 
-  return res.json(res, {status: 200 });
+  return NextResponse.json(res, {status: 200 });
 }
