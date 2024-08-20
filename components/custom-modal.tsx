@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell} from "@nextui-org/table";
 import { CustomModalType, FocusedTodoType, Todo } from "@/types";
 import {
@@ -17,8 +17,13 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
   onClose: () => void
 }) => {
 
-  const [isDone, setIsDonw] = useState<Boolean>(false);
-  const [editedTodoInput, setEditedTodoInput] = useState<string>('');
+  const [isDone, setIsDone] = useState<Boolean>(false);
+  const [editedTodoInput, setEditedTodoInput] = useState<string>(focusedTodo.title);
+  // const [editedTodoInput, setEditedTodoInput] = useState<string>(focusedTodo.title);과 같은 코드
+  // useEffect(() => {
+  //     setEditedTodoInput(focusedTodo.title);
+  // }, []);
+
 
   const DetailModal = () => {
     return <>
@@ -44,17 +49,22 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
       <ModalHeader className="flex flex-col gap-1">Modify</ModalHeader>
       <ModalBody>
         <p><span className="font-bold">ID : </span>{focusedTodo.id}</p>
+        <p>입력 된 할일 : {editedTodoInput}</p>
         <Input
           autoFocus
-          label="to do"
+          label="To do"
           placeholder="Enter to do message."
           variant="bordered"
           isRequired
           defaultValue={focusedTodo.title}
+          value={editedTodoInput}
+          onValueChange={setEditedTodoInput}
         />
         <div className="flex py-2 space-x-4">
           <span className="font-bold">Completed : </span>
-          <Switch defaultSelected={focusedTodo.is_done} aria-lable="Automatic updates">
+          <Switch defaultSelected={focusedTodo.is_done}
+          onValueChange={setIsDone}
+          aria-lable="Automatic updates">
           </Switch>
         </div>
         <div className="flex py-2 space-x-4">
