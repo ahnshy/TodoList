@@ -6,7 +6,7 @@ import { CustomModalType, FocusedTodoType, Todo } from "@/types";
 import {
   Input, Button, Popover, PopoverContent, PopoverTrigger, Spinner,
   Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,
-  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Checkbox
+  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Checkbox, Switch
 } from "@nextui-org/react";
 import { MailIcon } from "@nextui-org/shared-icons";
 import { Link } from "@nextui-org/link";
@@ -16,6 +16,9 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
   modalType: CustomModalType,
   onClose: () => void
 }) => {
+
+  const [isDone, setIsDonw] = useState<Boolean>(false);
+  const [editedTodoInput, setEditedTodoInput] = useState<string>('');
 
   const DetailModal = () => {
     return <>
@@ -38,45 +41,33 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
 
   const ModifyModal = () => {
     return <>
-      <ModalHeader className="flex flex-col gap-1">Log in</ModalHeader>
+      <ModalHeader className="flex flex-col gap-1">Modify</ModalHeader>
       <ModalBody>
+        <p><span className="font-bold">ID : </span>{focusedTodo.id}</p>
         <Input
           autoFocus
-          endContent={
-            <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-          }
-          label="Email"
-          placeholder="Enter your email"
+          label="to do"
+          placeholder="Enter to do message."
           variant="bordered"
+          isRequired
+          defaultValue={focusedTodo.title}
         />
-        <Input
-          // endContent={
-          //   // <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-          // }
-          label="Password"
-          placeholder="Enter your password"
-          type="password"
-          variant="bordered"
-        />
-        <div className="flex py-2 px-1 justify-between">
-          <Checkbox
-            classNames={{
-              label: "text-small",
-            }}
-          >
-            Remember me
-          </Checkbox>
-          <Link color="primary" href="#" size="sm">
-            Forgot password?
-          </Link>
+        <div className="flex py-2 space-x-4">
+          <span className="font-bold">Completed : </span>
+          <Switch defaultSelected={focusedTodo.is_done} aria-lable="Automatic updates">
+          </Switch>
+        </div>
+        <div className="flex py-2 space-x-4">
+          <span className="font-bold">Created : </span>
+          <p>{`${focusedTodo.create_at}`}</p>
         </div>
       </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="flat" onPress={onClose}>
-          Close
+          Apply
         </Button>
         <Button color="primary" onPress={onClose}>
-          Sign in
+          Close
         </Button>
       </ModalFooter>
     </>
