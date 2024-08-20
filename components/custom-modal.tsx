@@ -29,20 +29,24 @@ const CustomModal = ({ focusedTodo, modalType, onClose, onEdit }: {
 
   const DetailModal = () => {
     return <>
-        <ModalHeader className="flex flex-col gap-1">{ modalType }</ModalHeader>
-        <ModalBody>
-          <p>
-              Detail Modal
-          </p>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="danger" variant="light" onPress={onClose}>
-            Close
-          </Button>
-          <Button color="primary" onPress={onClose}>
-            Ok
-          </Button>
-        </ModalFooter>
+      <ModalHeader className="flex flex-col gap-1">View</ModalHeader>
+      <ModalBody>
+        <p><span className="font-bold">ID : </span>{focusedTodo.id}</p>
+        <p><span className="font-bold">Title : </span>{focusedTodo.title}</p>
+        <div className="flex py-2 space-x-4">
+          <span className="font-bold">Completed : </span>
+          {`${focusedTodo.isDone ? "Done" : "Progress"}`}
+        </div>
+        <div className="flex py-2 space-x-4">
+          <span className="font-bold">Created : </span>
+          <p>{`${focusedTodo.create_at}`}</p>
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <Button color="default" onPress={onClose}>
+          Close
+        </Button>
+      </ModalFooter>
       </>
   }
 
@@ -96,18 +100,31 @@ const CustomModal = ({ focusedTodo, modalType, onClose, onEdit }: {
 
   const DeleteModal = () => {
     return <>
-      <ModalHeader className="flex flex-col gap-1">{ modalType }</ModalHeader>
+      <ModalHeader className="flex flex-col gap-1">Delete</ModalHeader>
       <ModalBody>
-        <p>
-          Delete Modal
-        </p>
+        <p><span className="font-bold">ID : </span>{focusedTodo.id}</p>
+        <p><span className="font-bold">Title : </span>{focusedTodo.title}</p>
+        <div className="flex py-2 space-x-4">
+          <span className="font-bold">Completed : </span>
+          {`${focusedTodo.isDone ? "Done" : "Progress"}`}
+        </div>
+        <div className="flex py-2 space-x-4">
+          <span className="font-bold">Created : </span>
+          <p>{`${focusedTodo.create_at}`}</p>
+        </div>
       </ModalBody>
       <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
-          Close
+        <Button color="warning" variant="flat" onPress={() => {
+          setIsLoading(true);
+          onEdit(focusedTodo.id, editedTodoInput, isDone);
+        }}>
+          {(isLoading) ? <CircularProgress
+            size="sm"
+            color="warning"
+            aria-label="Loading..." /> : "Apply"}
         </Button>
-        <Button color="primary" onPress={onClose}>
-          Ok
+        <Button color="default" onPress={onClose}>
+          Close
         </Button>
       </ModalFooter>
     </>
