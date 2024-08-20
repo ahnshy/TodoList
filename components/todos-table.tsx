@@ -53,9 +53,34 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
     router.refresh();
     setIsLoading(false);
     setTodoAddEnable(false);
-    notifyTodoAddedEvent("Succeed to add todo");
+    notifySuccessEvent("Succeed to add todo");
     //console.log(`new to do job success: ${newTodoInput}`);
   }
+
+  const editTodoHandler = async (id: string,
+                                 modifiedTitle: string,
+                                 modifiedIsDone: boolean) => {
+    setIsLoading(true);
+
+    await new Promise(f => setTimeout(f, 600));
+
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/todos/${id}`, {
+      method: 'post',
+      body: JSON.stringify({
+        title: modifiedTitle,
+        is_done: modifiedIsDone
+      }),
+      cache: 'no-store'
+    });
+
+    setNewTodoInput('');
+    router.refresh();
+    setIsLoading(false);
+    setTodoAddEnable(false);
+    notifySuccessEvent("Succeed to modified todo");
+    //console.log(`new to do job success: ${newTodoInput}`);
+  }
+
 
   const DisabledTodoAddButton = () => {
     return
@@ -88,7 +113,8 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu onAction={(key) => {
-                    console.log(`selected item.id: ${item.id} / key: ${key}`);
+                    //console.log(`selected item.id: ${item.id} / key: ${key}`);
+                    //console.log(`selected item.id: ${item.id} / key: ${key}`);
                     setCurrentModalData({focusedTodo: item, modalType: key as CustomModalType })
                     onOpen();
                   }}>
@@ -103,7 +129,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
   }
 
   // apply react-toastify
-  const notifyTodoAddedEvent = (msg: string) => toast.success(msg);
+  const notifySuccessEvent = (msg: string) => toast.success(msg);
 
   // Modal Status Closure
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -116,7 +142,13 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
             (currentModalData.focusedTodo && <CustomModal
                 focusedTodo={ currentModalData.focusedTodo }
                 modalType={ currentModalData.modalType }
-                OnClose={onClose}
+                onClose={onClose}
+                onEdit={ async (id, title, isDone)  => {
+                  //console.log(id, title, isDone);
+                  await editTodoHandler(id, title, isDone);
+                  onClose();
+                }
+                }
             />)
           )}
         </ModalContent>
@@ -172,7 +204,7 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
         </TableHeader>
         <TableBody emptyContent={"There are no items to show."}>
           {todos && todos.map((item: Todo) => (
-            TodoRow(item)
+             TodoRow(item)
           ))}
         </TableBody>
       </Table>

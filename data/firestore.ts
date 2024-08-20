@@ -37,7 +37,7 @@ export async function fetchTodos() {
   }
 
   querySnapshot.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
+    //console.log(doc.id, " => ", doc.data());
 
     const item = {
       id:doc.id,
@@ -88,7 +88,7 @@ export async function getTodo(id) {
   const itemDocSnap = await getDoc(itemDocRef);
 
   if (itemDocSnap.exists()) {
-    console.log("Document data:", itemDocSnap.data());
+    //console.log("Document data:", itemDocSnap.data());
 
     const item = {
       id:itemDocSnap.id,

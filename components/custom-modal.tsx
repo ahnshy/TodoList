@@ -6,18 +6,20 @@ import { CustomModalType, FocusedTodoType, Todo } from "@/types";
 import {
   Input, Button, Popover, PopoverContent, PopoverTrigger, Spinner,
   Dropdown, DropdownTrigger, DropdownMenu, DropdownItem,
-  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Checkbox, Switch
+  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Checkbox, Switch, CircularProgress
 } from "@nextui-org/react";
 import { MailIcon } from "@nextui-org/shared-icons";
 import { Link } from "@nextui-org/link";
 
-const CustomModal = ({ focusedTodo, modalType, onClose }: {
+const CustomModal = ({ focusedTodo, modalType, onClose, onEdit }: {
   focusedTodo: Todo,
   modalType: CustomModalType,
-  onClose: () => void
+  onClose: () => void,
+  onEdit: (id: string, title: string, isDone:boolean) => void
 }) => {
 
-  const [isDone, setIsDone] = useState<Boolean>(false);
+  const [isDone, setIsDone] = useState(focusedTodo.is_done);
+  const [isLoading, setIsLoading] = useState(false);
   const [editedTodoInput, setEditedTodoInput] = useState<string>(focusedTodo.title);
   // const [editedTodoInput, setEditedTodoInput] = useState<string>(focusedTodo.title);과 같은 코드
   // useEffect(() => {
@@ -49,7 +51,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
       <ModalHeader className="flex flex-col gap-1">Modify</ModalHeader>
       <ModalBody>
         <p><span className="font-bold">ID : </span>{focusedTodo.id}</p>
-        <p>입력 된 할일 : {editedTodoInput}</p>
+        {/*<p>입력 된 할일 : {editedTodoInput}</p>*/}
         <Input
           autoFocus
           label="To do"
@@ -64,8 +66,11 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
           <span className="font-bold">Completed : </span>
           <Switch defaultSelected={focusedTodo.is_done}
           onValueChange={setIsDone}
-          aria-lable="Automatic updates">
+          aria-lable="Automatic updates"
+          color="warning"
+          >
           </Switch>
+          { `${isDone? 'Done' : 'Progress'}` }
         </div>
         <div className="flex py-2 space-x-4">
           <span className="font-bold">Created : </span>
@@ -73,10 +78,16 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
         </div>
       </ModalBody>
       <ModalFooter>
-        <Button color="danger" variant="flat" onPress={onClose}>
-          Apply
+        <Button color="warning" variant="flat" onPress={() => {
+          setIsLoading(true);
+          onEdit(focusedTodo.id, editedTodoInput, isDone)
+        }}>
+          {(isLoading) ? <CircularProgress
+            size="sm"
+            color="warning"
+            aria-label="Loading..." /> : "Apply"}
         </Button>
-        <Button color="primary" onPress={onClose}>
+        <Button color="default" onPress={onClose}>
           Close
         </Button>
       </ModalFooter>
@@ -103,7 +114,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose }: {
   }
 
   const getModal = (type: CustomModalType) => {
-    console.log(type);
+    //console.log(type);
     switch (type) {
       case 'detail':  return DetailModal();
       case 'modify':  return ModifyModal();
