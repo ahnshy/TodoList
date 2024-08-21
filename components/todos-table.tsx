@@ -113,13 +113,18 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
       </PopoverContent>
     </Popover>
   }
+
+  const applyIsDoneCSS = (isDone: boolean) =>
+    (isDone ? "line-through text-gray-900/50 dark:text-white/40" : "")
+    // (isDone ? "line-through text-white/50" : "")
+
   const TodoRow = (item: Todo) => {
     return <TableRow key={item.id}>
-            <TableCell>{item.id.slice(0, 4)}</TableCell>
-            <TableCell>{item.title}</TableCell>
+            <TableCell className={applyIsDoneCSS(item.is_done)}>{item.id.slice(0, 4)}</TableCell>
+            <TableCell className={applyIsDoneCSS(item.is_done)}>{item.title}</TableCell>
             {/*<TableCell>{item.is_done ? "&#xU+2705;" : "&#128204;"}</TableCell>*/}
-            <TableCell>{item.is_done ? "Done" : "Progess"}</TableCell>
-            <TableCell>{`${item.create_at}`}</TableCell>
+            <TableCell className={applyIsDoneCSS(item.is_done)}>{item.is_done ? "Done" : "Progess"}</TableCell>
+            <TableCell className={applyIsDoneCSS(item.is_done)}>{`${item.create_at}`}</TableCell>
             <TableCell>
               <div className="relative flex justify-end items-center gap-2">
                 <Dropdown>
