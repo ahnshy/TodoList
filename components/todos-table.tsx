@@ -73,11 +73,27 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
       cache: 'no-store'
     });
 
-    setNewTodoInput('');
+    //setNewTodoInput('');
     router.refresh();
     setIsLoading(false);
-    setTodoAddEnable(false);
+    //setTodoAddEnable(false);
     notifySuccessEvent("Succeed to modified todo");
+    //console.log(`new to do job success: ${newTodoInput}`);
+  }
+
+  const deleteTodoHandler = async (id: string) => {
+    setIsLoading(true);
+
+    await new Promise(f => setTimeout(f, 600));
+
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/todos/${id}`, {
+      method: 'delete',
+      cache: 'no-store'
+    });
+
+    router.refresh();
+    setIsLoading(false);
+    notifySuccessEvent("Succeed to deleted todo");
     //console.log(`new to do job success: ${newTodoInput}`);
   }
 
@@ -147,8 +163,12 @@ const TodosTable = ( { todos } : { todos:Todo[] }) => {
                   //console.log(id, title, isDone);
                   await editTodoHandler(id, title, isDone);
                   onClose();
-                }
-                }
+                }}
+                onDelete={ async (id) => {
+                  console.log("onDelete / id:", id);
+                  await deleteTodoHandler(id);
+                  onClose();
+                }}
             />)
           )}
         </ModalContent>

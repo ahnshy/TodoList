@@ -11,11 +11,12 @@ import {
 import { MailIcon } from "@nextui-org/shared-icons";
 import { Link } from "@nextui-org/link";
 
-const CustomModal = ({ focusedTodo, modalType, onClose, onEdit }: {
+const CustomModal = ({ focusedTodo, modalType, onClose, onEdit, onDelete }: {
   focusedTodo: Todo,
   modalType: CustomModalType,
   onClose: () => void,
-  onEdit: (id: string, title: string, isDone:boolean) => void
+  onEdit: (id: string, title: string, isDone:boolean) => void,
+  onDelete: (id: string) => void,
 }) => {
 
   const [isDone, setIsDone] = useState(focusedTodo.is_done);
@@ -114,14 +115,14 @@ const CustomModal = ({ focusedTodo, modalType, onClose, onEdit }: {
         </div>
       </ModalBody>
       <ModalFooter>
-        <Button color="warning" variant="flat" onPress={() => {
+        <Button color="danger" variant="flat" onPress={() => {
           setIsLoading(true);
-          onEdit(focusedTodo.id, editedTodoInput, isDone);
+          onDelete(focusedTodo.id);
         }}>
           {(isLoading) ? <CircularProgress
             size="sm"
-            color="warning"
-            aria-label="Loading..." /> : "Apply"}
+            color="danger"
+            aria-label="Loading..." /> : "Delete"}
         </Button>
         <Button color="default" onPress={onClose}>
           Close
