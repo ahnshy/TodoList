@@ -2,7 +2,7 @@ import { title } from "@/components/primitives";
 import { Counter } from "@/components/counter";
 
 async function getInitialCount() {
-  console.log("getInitialCount called.");
+  //console.log("getInitialCount called.");
   await new Promise(f => setTimeout(f, 3000)); // 3초 대기 후 10 리턴
   return 10;
 }

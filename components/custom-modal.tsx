@@ -36,7 +36,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose, onEdit, onDelete }: {
         <p><span className="font-bold">Title : </span>{focusedTodo.title}</p>
         <div className="flex py-2 space-x-4">
           <span className="font-bold">Completed : </span>
-          {`${focusedTodo.isDone ? "Done" : "Progress"}`}
+          {`${focusedTodo.is_done ? "Done" : "Progress"}`}
         </div>
         <div className="flex py-2 space-x-4">
           <span className="font-bold">Created : </span>
@@ -107,7 +107,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose, onEdit, onDelete }: {
         <p><span className="font-bold">Title : </span>{focusedTodo.title}</p>
         <div className="flex py-2 space-x-4">
           <span className="font-bold">Completed : </span>
-          {`${focusedTodo.isDone ? "Done" : "Progress"}`}
+          {`${focusedTodo.is_done ? "Done" : "Progress"}`}
         </div>
         <div className="flex py-2 space-x-4">
           <span className="font-bold">Created : </span>

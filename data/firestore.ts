@@ -1,10 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+
 import {
   getFirestore, collection, getDocs, getDoc, setDoc, doc, deleteDoc, updateDoc,
   Timestamp, query, orderBy, limit
 } from "firebase/firestore";
 import exp from "constants";
+import { Todo } from "@/types";
+import { title } from "@/components/primitives";
+import { Props } from "next/script";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,7 +34,8 @@ export async function fetchTodos() {
 
   const querySnapshot = await getDocs(descQuery);
 
-  const fetchedTodos = [];
+  let fetchedTodos: Todo[] =[];
+
   if (querySnapshot.empty) {
     console.log("fetchedTodos empty.");
     return fetchedTodos;
@@ -39,22 +44,21 @@ export async function fetchTodos() {
   querySnapshot.forEach((doc) => {
     //console.log(doc.id, " => ", doc.data());
 
-    const item = {
+    const Todo = {
       id:doc.id,
       title:doc.data()["title"],
       is_done:doc.data()["is_done"],
       create_at:doc.data()["create_at"].toDate(),
-      //create_at:doc.data()["create_at"].toDate().toLocaleTimeString('ko'),
+      create_at:doc.data()["create_at"].toDate().toLocaleTimeString('ko'),
     }
-    fetchedTodos.push(item);
-
+    fetchedTodos.push(Todo);
   });
 
   return fetchedTodos;
 }
 
 // add to do docs
-export async function addTodos({ title }) {
+export async function addTodos({ title } : any) {
   const newItemRef = doc(collection(db, "todos"));
 
   const createAtTimestamp = Timestamp.fromDate(new Date());
@@ -79,7 +83,7 @@ export async function addTodos({ title }) {
 }
 
 // get to do by id
-export async function getTodo(id) {
+export async function getTodo(id : any) {
   if (id === null){
     return null;
   }
@@ -107,7 +111,7 @@ export async function getTodo(id) {
 }
 
 // delete to do by id
-export async function deleteTodo(id) {
+export async function deleteTodo(id : any) {
 
   const getedTodo = await getTodo(id);
 
@@ -120,7 +124,7 @@ export async function deleteTodo(id) {
 }
 
 // edit to do by id
-export async function updateTodo(id, { title, is_done }) {
+export async function updateTodo(id : any, { title, is_done }) {
 
   const getedTodo = await getTodo(id);
 
