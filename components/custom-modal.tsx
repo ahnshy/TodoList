@@ -58,7 +58,6 @@ const CustomModal = ({ focusedTodo, modalType, onClose, onEdit, onDelete }: {
         <p><span className="font-bold">ID : </span>{focusedTodo.id}</p>
         {/*<p>입력 된 할일 : {editedTodoInput}</p>*/}
         <Input
-          autoFocus
           label="To do"
           placeholder="Enter to do message."
           variant="bordered"
@@ -71,7 +70,7 @@ const CustomModal = ({ focusedTodo, modalType, onClose, onEdit, onDelete }: {
           <span className="font-bold">Completed : </span>
           <Switch defaultSelected={focusedTodo.is_done}
           onValueChange={setIsDone}
-          aria-lable="Automatic updates"
+          // aria-lable="Automatic updates"
           color="warning"
           >
           </Switch>
