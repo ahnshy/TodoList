@@ -6,6 +6,9 @@ esm/*
 public/*
 tests/*
 scripts/*
+counter/*
+todos/*
+components/*
 *.config.js
 .DS_Store
 node_modules
