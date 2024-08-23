@@ -24,7 +24,6 @@ import {
   ModalContent,
   useDisclosure,
 } from "@nextui-org/react";
-import { Simulate } from "react-dom/test-utils";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -34,13 +33,12 @@ import CustomModal from "./custom-modal";
 import { CustomModalType, FocusedTodoType, Todo } from "@/types";
 
 import "react-toastify/dist/ReactToastify.css";
-import change = Simulate.change;
 
 const TodosTable = ({ todos }: { todos: Todo[] }) => {
   // add possible todo
   const [todoAddEnable, setTodoAddEnable] = useState(false);
 
-  // inputed to do
+  // inputted to do
   const [newTodoInput, setNewTodoInput] = useState("");
 
   // Status Loading
@@ -122,7 +120,6 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
   };
 
   const DisabledTodoAddButton = () => {
-    return;
     // <Button color="default" className="h-14">Enter</Button>
     <Popover placement="top" showArrow={true}>
       <PopoverTrigger>
@@ -154,7 +151,7 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
         </TableCell>
         {/*<TableCell>{item.is_done ? "&#xU+2705;" : "&#128204;"}</TableCell>*/}
         <TableCell className={applyIsDoneCSS(item.is_done)}>
-          {item.is_done ? "Done" : "Progess"}
+          {item.is_done ? "Done" : "Progress"}
         </TableCell>
         <TableCell
           className={applyIsDoneCSS(item.is_done)}
@@ -226,13 +223,7 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
   };
 
   // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
-  return (
+  let div = <>
     <div className="flex flex-col space-y-2">
       {ModalComponent()}
       <ToastContainer
@@ -258,7 +249,7 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
             setTodoAddEnable(changedInput.length > 0);
           }}
         />
-        { todoAddEnable ? (
+        {todoAddEnable ? (
           <Button
             className="h-14"
             color="warning"
@@ -269,7 +260,7 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
             Enter
           </Button>
         ) : (
-          DisabledTodoAddButton()
+          void DisabledTodoAddButton()
         )}
       </div>
       <div className="h-6">
@@ -289,7 +280,8 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
         </TableBody>
       </Table>
     </div>
-  );
+  </>;
+  return div;
 };
 
 export default TodosTable;

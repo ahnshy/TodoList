@@ -48,7 +48,7 @@ export async function fetchTodos() {
       id:doc.id,
       title:doc.data()["title"],
       is_done:doc.data()["is_done"],
-      create_at:doc.data()["create_at"].toDate(),
+      // create_at:doc.data()["create_at"].toDate(),
       create_at:doc.data()["create_at"].toDate().toLocaleTimeString('ko'),
     }
     fetchedTodos.push(Todo);
@@ -124,7 +124,8 @@ export async function deleteTodo(id : any) {
 }
 
 // edit to do by id
-export async function updateTodo(id : any, { title, is_done }) {
+// @ts-ignore
+export async function updateTodo(id : any, { title: title, is_done: is_done }) {
 
   const getedTodo = await getTodo(id);
 

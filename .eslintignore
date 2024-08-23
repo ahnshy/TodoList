@@ -8,7 +8,7 @@ tests/*
 scripts/*
 counter/*
 todos/*
-components/*
+*.tsx
 *.config.js
 .DS_Store
 node_modules
