@@ -8,7 +8,10 @@ tests/*
 scripts/*
 counter/*
 app/todos/*
-app/components/api/*
+app/components/api/route.ts
+app/components/api/[id]/route.ts
+app/components/api/todos/route.ts
+app/components/api/todos/[slug]/route.ts
 app/components/todos/*
 app/components/todos-table.tsx
 app/components/data/firestore.ts
