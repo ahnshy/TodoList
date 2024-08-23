@@ -222,7 +222,6 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
     );
   };
 
-  // @ts-ignore
   let div = <>
     <div className="flex flex-col space-y-2">
       {ModalComponent()}

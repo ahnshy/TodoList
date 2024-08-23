@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/eslintrc.json",
   "env": {
     "browser": false,
-    "es2021": true,
-    "node": true
+    "es2021": false,
+    "node": false
   },
   "extends": [
     "plugin:react/recommended",
@@ -15,7 +15,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": false
     },
     "ecmaVersion": 12,
     "sourceType": "module"

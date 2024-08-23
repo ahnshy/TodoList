@@ -7,7 +7,11 @@ public/*
 tests/*
 scripts/*
 counter/*
-todos/*
+app/todos/*
+app/components/api/*
+app/components/todos/*
+app/components/todos-table.tsx
+app/components/data/firestore.ts
 *.tsx
 *.config.js
 .DS_Store
