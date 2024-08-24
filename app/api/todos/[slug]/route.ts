@@ -8,7 +8,7 @@ export async  function GET(req: NextRequest,
   const getedTodo = await getTodo(params.slug);
 
   if (getedTodo === null) {
-    return new Response(null,{ status : 204 });
+    return new Response("slug is empty",{ status : 200 });
   }
 
   const res = {
