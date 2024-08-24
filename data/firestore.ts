@@ -84,6 +84,7 @@ export async function addTodos({ title } : any) {
 
 // get to do by id
 export async function getTodo(id : any) {
+
   if (id === null){
     return null;
   }
