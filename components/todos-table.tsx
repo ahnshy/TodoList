@@ -34,7 +34,7 @@ import { CustomModalType, FocusedTodoType, Todo } from "@/types";
 
 import "react-toastify/dist/ReactToastify.css";
 
-const TodosTable = ({ todos }: { todos: Todo[] }) => {
+export default const TodosTable = ({ todos }: { todos: Todo[] }) => {
   // add possible todo
   const [todoAddEnable, setTodoAddEnable] = useState(false);
 
@@ -283,4 +283,4 @@ const TodosTable = ({ todos }: { todos: Todo[] }) => {
   return div;
 };
 
-export default TodosTable;
+// export default TodosTable;
