@@ -1,6 +1,9 @@
 # To do list <br/>
-This is a to do list management applications using Next.js 14 (app directory) and NextUI (v2).
-[Ready to CodeSandbox demo](https://githubbox.com/nextui-org/next-app-template)
+This is a to do list management applications using Next.js 14 (app directory) and NextUI (v2).<br/><br/>
+
+[Ready to CodeSand box demo](https://codesandbox.io/p/github/ahnshy/TodoList/main?file=%2Fdata%2Ffirestore.ts%3A18%2C39&workspaceId=10fc1a80-4c50-41cf-bbaf-7ff74e75400f)<br/>
+- Demo is only possible if you enter your Firebase information in the .env file.<br/>
+![image](https://github.com/user-attachments/assets/b7d0c41a-f779-46d6-8e21-1c48c871e092)
 <br/><br/>
 
 ## Technologies Used
