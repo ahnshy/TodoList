@@ -1,53 +1,56 @@
-# Next.js & NextUI Template
-
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
-
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+# To do list <br/>
+This is a to do list management applications using Next.js 14 (app directory) and NextUI (v2).
+[Ready to CodeSandbox demo](https://githubbox.com/nextui-org/next-app-template)
+<br/><br/>
 
 ## Technologies Used
-
 - [Next.js 14](https://nextjs.org/docs/getting-started)
 - [NextUI v2](https://nextui.org/)
+- [Firebase](https://firebase.google.com/?hl=ko)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- [Next-themes](https://github.com/pacocoursey/next-themes)
+- [React-toastify](https://github.com/ahnshy/react-toastify)
+<br/><br/>
 
-## How to Use
+## Demo
+- Ready to vercel demo<br/>
+![image](https://github.com/user-attachments/assets/d8ae63b6-562e-44d5-8780-bb89a9270009)<br/>
+![image](https://github.com/user-attachments/assets/d7c3223d-5602-49ba-9c25-b0a0cce4c3e3)<br/>
+![image](https://github.com/user-attachments/assets/52d8e690-f217-48d2-b3ff-906b5d777d05)<br/>
+![image](https://github.com/user-attachments/assets/5957b9ce-38c2-4da0-ba64-b9529b20d600)<br/>
+![image](https://github.com/user-attachments/assets/2f3d110a-fe01-4c9e-9639-865405dfe3bb)<br/><br/><br/>
 
-### Use the template with create-next-app
 
-To create a new project based on this template using `create-next-app`, run the following command:
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+## How to use instructions
 
-### Install dependencies
-
+### 1.Install dependencies
 You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
-
 ```bash
 npm install
 ```
+<br/><br/>
 
-### Run the development server
+### 2.Use the nextjs-app
 
 ```bash
 npm run dev
+or
+next dev --turbo
 ```
+<br/><br/>
 
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+### 3.Run the development server
 
 ```bash
-public-hoist-pattern[]=*@nextui-org/*
+npm run build
+or
+next build
 ```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+<br/><br/>
 
 ## License
-
 Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
